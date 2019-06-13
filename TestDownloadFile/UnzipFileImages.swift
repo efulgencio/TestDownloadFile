@@ -24,7 +24,6 @@ class UnzipFileImages: NSObject {
                 let documentsPath = URL(fileURLWithPath: filePath)
                 try FileManager.default.unzipItem(at: documentsPath, to: pathWorkingDirectory)
             } catch {
-                print("Extraction images of Zip archive failed with error: \(error)")
                 return
             }
         }
@@ -39,7 +38,6 @@ class UnzipFileImages: NSObject {
         do {
             try FileManager.default.unzipItem(at: URL(fileURLWithPath: destinationUrl.relativePath), to: pathWorkingDirectory)
         } catch {
-            print("Extraction images of Zip archive failed with error: \(error)")
             return
         }
     }

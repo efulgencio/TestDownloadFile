@@ -19,10 +19,24 @@ class ViewController: UIViewController {
         let ubicacion = URL(string: "http://setfilecloud.com/mangrana/wtswrngiOS/imagesZipiOS/images.zip")
         let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let destinationUrl = documentsUrl.appendingPathComponent("imagesupdate.zip")
+        
+       //  UnzipFileImages.unZipFileWithImagesFromResources()
         // Descargo y descomprimo
         Downloader.load(url: ubicacion!, to: destinationUrl) {
             UnzipFileImages.unZipFileWithImagesFromResourcesForUpdate()
             self.copyOrReplaceImage()
+            // remove folder
+            do {
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let origen = documentsURL.appendingPathComponent("imagesiOSupdate")
+                let fichero = documentsUrl.appendingPathComponent("imagesupdate.zip")
+                try FileManager.default.removeItem(atPath: origen.relativePath)
+                // borrar el zip
+                try FileManager.default.removeItem(atPath: fichero.relativePath)
+            }
+            catch let error as NSError {
+                print("Ooops! Something went wrong: \(error)")
+            }
         }
     }
     

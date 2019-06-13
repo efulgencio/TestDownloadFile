@@ -1,7 +1,6 @@
 
 import UIKit
 
-
 class Downloader {
     class func load(url: URL, to localUrl: URL, completion: @escaping () -> ()) {
         let sessionConfig = URLSessionConfiguration.default
@@ -14,16 +13,14 @@ class Downloader {
                 if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                     print("Success: \(statusCode)")
                 }
-                
                 do {
                     try FileManager.default.copyItem(at: tempLocalUrl, to: localUrl)
                     completion()
                 } catch (let writeError) {
                     print("error writing file \(localUrl) : \(writeError)")
                 }
-                
             } else {
-                print("Failure: %@", error?.localizedDescription);
+                print("Failure: %@", error?.localizedDescription as Any);
             }
         }
         task.resume()
